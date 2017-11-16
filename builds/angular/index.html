@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html ng-app="mapApp">
+<head>
+<meta charset="ISO-8859-1">
+<title>geoApp</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></link>
+<link rel="stylesheet" href="css/style.css">
+
+<script	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
+<script src="http://maps.googleapis.com/maps/api/js?sensor=false&language=en"></script>
+<script type="text/javascript" src="js/app.js"></script>
+
+</head>
+<body>
+<div ng-controller="MapController">
+
+  <div class="container-fluid">
+        <div class="row content">
+          
+            <div class="col-sm-4 sidenav hidden-xs">
+                <h2>geoApp</h2>
+                <hr>
+                
+                <!-- Add toppic starts -->
+                <div class="row">
+                  <div class="form-group col-xs-6">
+                    <label>Topic Name:</label>
+                    <input type="text" class="form-control" id="TopiName" ng-model="topicTitle">
+                  </div>
+                  <div class="form-group col-xs-6">
+                    <label >Topic Location:</label>
+                    <input type="text" class="form-control" id="TopiName" ng-model="topicLocation">
+                  </div>
+                </div>
+                <div class="form-group">
+                    <label >Loation Discription:</label>
+                    <input type="text" class="form-control" id="TopiName" ng-model="locationDes">
+                  </div>
+                
+                <div>
+                  <button type="button" ng-click="addTopic()" class="btn btn-primary btn-md">Start topic</button>  
+                </div>
+                
+                
+                <!-- Add toppic Ends -->
+                <hr>
+                <div class="form-group">
+                  <label for="usr">Search by Topic:</label>
+                  <input type="text" class="form-control" id="usr">
+                </div>
+            </div>
+            
+            <br>
+            
+            <div class="col-sm-8">
+              <div class="well">
+               <div id="map"></div>
+              </div>
+
+              <div id="repeat" ng-repeat="marker in markers | orderBy : 'title'">
+                <a id="country_container" href="#" ng-click="openInfoWindow($event, marker)">
+                <label id="names" >{{marker.title}}</label></a>
+              </div>
+            </div>
+            
+        </div>
+    </div>
+
+</div>
+
+<script src="lib/jquery/jquery.min.js"></script>
+<script src="lib/bootstrap/popper.min.js"></script>
+<script src="lib/bootstrap/bootstrap.min.js"></script>
+</body>
+</html>
