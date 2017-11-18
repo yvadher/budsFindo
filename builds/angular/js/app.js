@@ -1,12 +1,99 @@
 
 //Angular App Module and Controller
-var mapApp = angular.module('mapApp', []);
-mapApp.controller('MapController', function ($scope, $http) {
+var mapApp = angular.module('mapApp', ['ngDialog']);
+mapApp.controller('MapController', function ($scope, $http, ngDialog) {
     
+    $scope.openTopics = function() {
+        ngDialog.openConfirm({template: 'modal.html',
+            className: 'ngdialog-theme-default',
+		    scope: $scope //Pass the scope object if you need to access in the template
+		}).then(
+			function(value) {
+				//save the contact form
+			},
+			function(value) {
+				//Cancel or do nothing
+			}
+		);
+	};
+
+    var createMarker = function (info){
+        
+        var marker = new google.maps.Marker({
+            map: $scope.map,
+            position: new google.maps.LatLng(info.lat, info.long),
+            title: info.place,
+            icon : 'images/marker.png'
+        });
+
+        var activeUsers = 0;
+        for (let i=0; i<info.topics.length;i++){
+            activeUsers += info.topics[i].activePeople;
+        }
+        marker.content = '<div class="infoWindowContent">' + info.desc + '<br />Total topics: ' + info.topics.length + ' !!<br>Active people <i class="fa fa-user" aria-hidden="true"/> : ' + activeUsers +  ' </div>';
+        
+        google.maps.event.addListener(marker, 'click', function(){
+            $scope.infoWindow.setContent('<h3>' + marker.title + '</h3>' +  marker.content);
+            $scope.infoWindow.open($scope.map, marker);
+            
+            if (marker.getAnimation() !== null) {
+            marker.setAnimation(null);
+            } else {
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+            }
+        });
+
+        var cityCircle = new google.maps.Circle({
+            center: new google.maps.LatLng(info.lat, info.long),
+            radius:  80,
+            strokeColor: '#1565C0',
+            strokeOpacity: 0.9,
+            strokeWeight: 2,
+            fillColor: '#42A5F5',
+            fillOpacity: 0.30
+        });
+        google.maps.event.addListener(cityCircle, 'click', function(){
+            $scope.dataTopic = info;
+            $scope.openTopics($scope.dataTopic);
+            console.log(info.topics);
+        });
+
+
+        cityCircle.setMap($scope.map);
+        $scope.markers.push(marker);
+    }  
+
+    function getDistanceFromLatLon(lat1,lon1,lat2,lon2) {
+        var R = 6371; // Radius of the earth in km
+        var dLat = deg2rad(lat2-lat1);  // deg2rad below
+        var dLon = deg2rad(lon2-lon1); 
+        var a = 
+          Math.sin(dLat/2) * Math.sin(dLat/2) +
+          Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+          Math.sin(dLon/2) * Math.sin(dLon/2)
+          ; 
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+        var d = R * c; // Distance in km
+        return d*1000;
+      };
+    function deg2rad(deg) {
+        return deg * (Math.PI/180)
+    };
+
+    setInterval(function(){ 
+        
+        for (i = $scope.totalData; i < $scope.data.length; i++){
+            createMarker($scope.data[i]);
+        }
+     }, 10000);
+
     $http.get('js/data.json').then(function(response){
         $scope.data = response.data;
-
+        $scope.totalData = $scope.data.length;
         var h = window.innerHeight;
+        var w = window.innerWidth;
+        console.log(w);
+        $("#search").width(w/3- 35);
         $("#map").height(h - 100);
         $(".pre-scrollable").css('max-height', h - 300 );
     
@@ -21,48 +108,7 @@ mapApp.controller('MapController', function ($scope, $http) {
         var autocomplete = new google.maps.places.Autocomplete($scope.inputLocation);
         $scope.markers = [];
         
-        var infoWindow = new google.maps.InfoWindow();
-        
-        var createMarker = function (info){
-            
-            var marker = new google.maps.Marker({
-                map: $scope.map,
-                position: new google.maps.LatLng(info.lat, info.long),
-                title: info.place,
-                icon : 'images/marker.png'
-            });
-
-            var activeUsers = 0;
-            for (let i=0; i<info.topics.length;i++){
-                activeUsers += info.topics[i].activePeople;
-            }
-            marker.content = '<div class="infoWindowContent">' + info.desc + '<br />Total topics: ' + info.topics.length + ' !!<br>Active people <i class="fa fa-user" aria-hidden="true"/> : ' + activeUsers +  ' </div>';
-            
-            google.maps.event.addListener(marker, 'click', function(){
-                infoWindow.setContent('<h3>' + marker.title + '</h3>' +  marker.content);
-                infoWindow.open($scope.map, marker);
-                
-                if (marker.getAnimation() !== null) {
-                marker.setAnimation(null);
-                } else {
-                marker.setAnimation(google.maps.Animation.BOUNCE);
-                }
-            });
-
-            var cityCircle = new google.maps.Circle({
-                center: new google.maps.LatLng(info.lat, info.long),
-                radius:  80,
-                strokeColor: '#1565C0',
-                strokeOpacity: 0.8,
-                strokeWeight: 2,
-                fillColor: '#42A5F5',
-                fillOpacity: 0.35
-            });
-            cityCircle.setMap($scope.map);
-            
-            $scope.markers.push(marker);
-            
-        }  
+        $scope.infoWindow = new google.maps.InfoWindow();
         
         for (i = 0; i < $scope.data.length; i++){
             createMarker($scope.data[i]);
@@ -74,15 +120,59 @@ mapApp.controller('MapController', function ($scope, $http) {
         }
 
         $scope.addTopic = function(){
-            if ($scope.topicTitle && $scope.topicLocation && $scope.locationDes){
-                var obj = {
-                        place : $scope.topicLocation,
-                        desc : $scope.locationDes,
-                        lat : $scope.topicLocation.lat,
-                        long : $scope.topicLocation.lang,
-                        topics : [{ title : $scope.topicTitle, activePeople : 1}]
+            if ($scope.topicTitle && $scope.topicLocation && $scope.topicDes){
+                
+                console.log($scope.topicLocation);
+                axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
+                    params:{
+                      address: $scope.topicLocation,
+                      key:'AIzaSyD0mVAoqSKvKHy7BGXfngqTeJaFXpheQ54'
                     }
-                topics.push(obj);
+                  })
+                  .then(function(response){
+                    // Log full response
+                    console.log(response);
+        
+                    // Formatted Address
+                    var formattedAddress = response.data.results[0].formatted_address;
+                     // Geometry
+                    var lat = response.data.results[0].geometry.location.lat;
+                    var lng = response.data.results[0].geometry.location.lng;
+                    
+                    var isInData = false;
+                    var indexObj = 0;
+                    for (let i = 0; i<$scope.data.length; i++){
+                        console.log(getDistanceFromLatLon($scope.data[i].lat, $scope.data[i].long, lat, lng));
+                        if (getDistanceFromLatLon($scope.data[i].lat, $scope.data[i].long, lat, lng) < 80){
+                            isInData = true;
+                            indexObj = i;
+                            break;
+                        }else {
+                            isInData = false;
+                        }
+                    }
+
+                    if (isInData){
+                        //Its in data add a topic and description only
+                        var topicObj = {"title" : $scope.topicTitle, "activePeople" : 5, "desc" : $scope.topicDes};
+                        $scope.data[indexObj].topics.push(topicObj);
+                        console.log($scope.data[indexObj]);
+                    }else {
+                        // Add new object to the data
+                        var obj = {
+                            "place" : formattedAddress,
+                            "desc" : $scope.topicDes,
+                            "lat" : lat,
+                            "long" : lng,
+                            "topics" : [{ title : $scope.topicTitle, activePeople : 1}]
+                        }
+                        $scope.data.push(obj);  
+                    }
+                    
+                    
+
+                    console.log(obj);
+                  });
             }
         }
 

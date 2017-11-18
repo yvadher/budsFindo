@@ -6,10 +6,15 @@
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></link>
+<link rel="stylesheet" href="lib/angular/ngDialog.min.css">
+<link rel="stylesheet" href="lib/angular/ngDialog-theme-default.min.css">
 <link rel="stylesheet" href="css/style.css">
 
 <script	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
 <script src="http://maps.googleapis.com/maps/api/js?sensor=false&language=en&libraries=places"></script>
+
+<script src="lib/angular/ngDialog.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
 
 </head>
@@ -31,13 +36,13 @@
                   </div>
                   <div class="form-group col-xs-6">
                     <label >Topic Location:</label>
-                    <input type="text" class="form-control" ng-model="topicLocation">
+                    <input type="text"  id="inputLoc" class="form-control" ng-model="topicLocation">
                   </div>
                 </div>
 
                 <div class="form-group">
-                    <label >Loation Discription:</label>
-                    <input type="text" id="inputLoc" class="form-control" ng-model="locationDes">
+                    <label >Topic Discription:</label>
+                    <input type="text" class="form-control" ng-model="topicDes">
                   </div>
                 
                 <div>
@@ -52,12 +57,12 @@
                   <label>Search <span ng-show="searchQuery">for : {{searchQuery}}</span></label>
                   <input type="text" class="form-control" ng-model="searchQuery">
                 </div>
-
+               
                 <!-- List View -->
 
                 <div class="container" >
                   <div class="row justify-content-center">
-                    <div class="col-sm-6 col-md-6 col-lg-6 pre-scrollable">
+                    <div class="col-sm-5 col-md-5 col-lg-5 pre-scrollable" id="search">
                       <ul class="list-group d-flex">
                         <li class="list-group-item" ng-repeat="item in data | filter : searchQuery | orderBy: 'desc'">
                             <div class="media d-flex align-items-center">

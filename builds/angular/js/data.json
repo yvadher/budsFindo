@@ -4,34 +4,34 @@
       "desc" : "A City of cultures and snow!",
       "lat" : 49.2827,
       "long" : -123.1207,
-      "topics" : [{ "title" : "Best food here", "activePeople" : 5}]
+      "topics" : [{ "title" : "Best food here", "activePeople" : 5, "desc" : "heyayyy"}]
   },
   {
       "place" : "Vancouver Lookout",
       "desc" : "SFU harbour center",
       "lat" : 49.284688,
       "long" : -123.112235,
-      "topics" : [{ "title" : "Best place to see", "activePeople" : 2}]
+      "topics" : [{ "title" : "Best place to see", "activePeople" : 2,  "desc" : "heyayyy"}]
   },
   {
       "place" : "Vancouver Public Library",
       "desc" : "Fun with books",
       "lat" : 49.279817,
       "long" : -123.115711,
-      "topics" : [{ "title" : "idiots are here", "activePeople" : 50}]
+      "topics" : [{ "title" : "idiots are here", "activePeople" : 50,  "desc" : "heyayyy"}]
   },
   {
       "place" : "Victory Square",
       "desc" : "Commercial city!",
       "lat" : 49.282252,
       "long" : -123.110175,
-      "topics" : [{ "title" : "Nice nice", "activePeople" : 1}]
+      "topics" : [{ "title" : "Nice nice", "activePeople" : 1,  "desc" : "heyayyy"}]
   },
   {
       "place" : "SFU",
       "desc" : "Most hard working guys ...",
-      "lat" : 49.278094,
-      "long" : -122.919883,
-      "topics" : [{ "title" : "Yagnik is here", "activePeople" : 500}]
+      "lat" : 49.278090,
+      "long" : -122.919800,
+      "topics" : [{ "title" : "Yagnik is here", "activePeople" : 500,  "desc" : "heyayyy"}]
   }
 ]

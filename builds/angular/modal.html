@@ -1,0 +1,32 @@
+<div>
+	<h2> Popular Topics : {{dataTopic.place}}</h2>
+    <hr>
+    <div class="container" >
+        <div class="row justify-content-center">
+            <div class="col-sm-4 col-md-4 col-lg-4">
+            <ul class="list-group d-flex">
+                <li class="list-group-item" ng-repeat="item in dataTopic.topics">
+                    <div class="media d-flex align-items-center">
+                    <div class="media-body">
+                        <h4 class="display-4">{{item.title}}</h4>
+                        <div class="text-secondary">- <em>{{item.desc}}</em></div>
+                    </div>
+                    </div>
+                </li>
+            </ul>
+            </div>
+        </div>
+        </div>
+        <hr>
+	
+</div>
+
+<!-- <div id="target-modal" class="rv-vanilla-modal">
+        <div class="rv-vanilla-modal-header group">
+          <button class="rv-vanilla-modal-close"><span class="text">×</span></button>
+          <h2 class="rv-vanilla-modal-title">Modal Title</h2>
+        </div>
+        <div class="rv-vanilla-modal-body">
+          <p>Modal Content</p>
+        </div>
+      </div> -->
