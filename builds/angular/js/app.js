@@ -17,7 +17,7 @@ mapApp.controller('MapController', function ($scope, $http, ngDialog) {
 		);
 	};
 
-    var createMarker = function (info){
+    var createMarker = function (info, i){
         
         var marker = new google.maps.Marker({
             map: $scope.map,
@@ -55,12 +55,10 @@ mapApp.controller('MapController', function ($scope, $http, ngDialog) {
         google.maps.event.addListener(cityCircle, 'click', function(){
             $scope.dataTopic = info;
             $scope.openTopics($scope.dataTopic);
-            console.log(info.topics);
         });
 
-
         cityCircle.setMap($scope.map);
-        $scope.markers.push(marker);
+        $scope.markers[i] = marker;
     }  
 
     function getDistanceFromLatLon(lat1,lon1,lat2,lon2) {
@@ -80,27 +78,27 @@ mapApp.controller('MapController', function ($scope, $http, ngDialog) {
         return deg * (Math.PI/180)
     };
 
-    setInterval(function(){ 
-        
-        for (i = $scope.totalData; i < $scope.data.length; i++){
-            createMarker($scope.data[i]);
-        }
-     }, 10000);
+    // setInterval(function(){ 
+    //     for (i = $scope.totalData; i < $scope.data.length; i++){
+    //         createMarker($scope.data[i]);
+    //     }
+    //  }, 3000);
 
     $http.get('js/data.json').then(function(response){
         $scope.data = response.data;
         $scope.totalData = $scope.data.length;
         var h = window.innerHeight;
         var w = window.innerWidth;
-        console.log(w);
+       
         $("#search").width(w/3- 35);
         $("#map").height(h - 100);
-        $(".pre-scrollable").css('max-height', h - 300 );
+        $(".pre-scrollable").css('max-height', h - 350 );
     
         var location = {lat: 49.2827, lng: -123.1207};
         var mapOptions = {
             zoom: 16,
-            center: location
+            center: location,
+            markers: []
         };
 
         $scope.inputLocation = document.getElementById('inputLoc');
@@ -111,8 +109,16 @@ mapApp.controller('MapController', function ($scope, $http, ngDialog) {
         $scope.infoWindow = new google.maps.InfoWindow();
         
         for (i = 0; i < $scope.data.length; i++){
-            createMarker($scope.data[i]);
+            createMarker($scope.data[i], i);
         }
+
+        //Listen to zoom change to that we can remove radius zone when clustering happens
+        $scope.map.addListener('zoom_changed', function(){
+            
+        });
+
+        var optionForCluster = {imagePath : 'images/m' };
+        var markerCluster = new MarkerClusterer($scope.map, $scope.markers, optionForCluster);
 
         $scope.openInfoWindow = function(e, selectedMarker){
             e.preventDefault();
@@ -121,8 +127,7 @@ mapApp.controller('MapController', function ($scope, $http, ngDialog) {
 
         $scope.addTopic = function(){
             if ($scope.topicTitle && $scope.topicLocation && $scope.topicDes){
-                
-                console.log($scope.topicLocation);
+            
                 axios.get('https://maps.googleapis.com/maps/api/geocode/json',{
                     params:{
                       address: $scope.topicLocation,
@@ -131,7 +136,6 @@ mapApp.controller('MapController', function ($scope, $http, ngDialog) {
                   })
                   .then(function(response){
                     // Log full response
-                    console.log(response);
         
                     // Formatted Address
                     var formattedAddress = response.data.results[0].formatted_address;
@@ -139,11 +143,11 @@ mapApp.controller('MapController', function ($scope, $http, ngDialog) {
                     var lat = response.data.results[0].geometry.location.lat;
                     var lng = response.data.results[0].geometry.location.lng;
                     
+                    $scope.map.panTo({lat, lng});
                     var isInData = false;
                     var indexObj = 0;
                     for (let i = 0; i<$scope.data.length; i++){
-                        console.log(getDistanceFromLatLon($scope.data[i].lat, $scope.data[i].long, lat, lng));
-                        if (getDistanceFromLatLon($scope.data[i].lat, $scope.data[i].long, lat, lng) < 80){
+                       if (getDistanceFromLatLon($scope.data[i].lat, $scope.data[i].long, lat, lng) < 80){
                             isInData = true;
                             indexObj = i;
                             break;
@@ -156,7 +160,9 @@ mapApp.controller('MapController', function ($scope, $http, ngDialog) {
                         //Its in data add a topic and description only
                         var topicObj = {"title" : $scope.topicTitle, "activePeople" : 5, "desc" : $scope.topicDes};
                         $scope.data[indexObj].topics.push(topicObj);
-                        console.log($scope.data[indexObj]);
+                        $scope.markers[indexObj].setMap(null);
+                        console.log("calling create mamrker");
+                        createMarker($scope.data[indexObj], indexObj);
                     }else {
                         // Add new object to the data
                         var obj = {
@@ -166,12 +172,10 @@ mapApp.controller('MapController', function ($scope, $http, ngDialog) {
                             "long" : lng,
                             "topics" : [{ title : $scope.topicTitle, activePeople : 1}]
                         }
-                        $scope.data.push(obj);  
+                        $scope.data.push(obj);
+                        createMarker(obj, $scope.data.length);  
                     }
                     
-                    
-
-                    console.log(obj);
                   });
             }
         }

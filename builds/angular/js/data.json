@@ -4,34 +4,56 @@
       "desc" : "A City of cultures and snow!",
       "lat" : 49.2827,
       "long" : -123.1207,
-      "topics" : [{ "title" : "Best food here", "activePeople" : 5, "desc" : "heyayyy"}]
+      "topics" : [{ "title" : "Best food here", "activePeople" : 5, "desc" : "Subway has free sandwitchs"}]
   },
   {
       "place" : "Vancouver Lookout",
       "desc" : "SFU harbour center",
       "lat" : 49.284688,
       "long" : -123.112235,
-      "topics" : [{ "title" : "Best place to see", "activePeople" : 2,  "desc" : "heyayyy"}]
+      "topics" : [{ "title" : "Best place to see", "activePeople" : 2,  "desc" : "View is awesome today!!"}]
   },
   {
       "place" : "Vancouver Public Library",
       "desc" : "Fun with books",
       "lat" : 49.279817,
       "long" : -123.115711,
-      "topics" : [{ "title" : "idiots are here", "activePeople" : 50,  "desc" : "heyayyy"}]
+      "topics" : [{ "title" : "idiots are here", "activePeople" : 50,  "desc" : "Wohh !! those guys in corner making noice"}]
   },
   {
       "place" : "Victory Square",
       "desc" : "Commercial city!",
       "lat" : 49.282252,
       "long" : -123.110175,
-      "topics" : [{ "title" : "Nice nice", "activePeople" : 1,  "desc" : "heyayyy"}]
+      "topics" : [{ "title" : "Nice nice", "activePeople" : 1,  "desc" : "Wow so nice victoria!!"}]
   },
   {
       "place" : "SFU",
       "desc" : "Most hard working guys ...",
       "lat" : 49.278090,
       "long" : -122.919800,
-      "topics" : [{ "title" : "Yagnik is here", "activePeople" : 500,  "desc" : "heyayyy"}]
-  }
+      "topics" : [{ "title" : "Yagnik is here", "activePeople" : 500,  "desc" : "UBC sucks!!"}]
+  },
+  {
+    "place" : "Near SFU",
+    "desc" : "Most hard working guys ...",
+    "lat" : 49.294090,
+    "long" : -122.919800,
+    "topics" : [{ "title" : "Lolol", "activePeople" : 10,  "desc" :"Check out cool stuff"}]
+},
+{
+    "place" : "Enes place Birquitalm",
+    "desc" : "Enes and Carter live here.",
+    "lat" : 49.263207,
+    "long" : -122.88796,
+    "topics" : [{ "title" : "Enes lives here", "activePeople" : 500,  "desc" : "Checkout enes yazici room"}]
+},
+{
+    "place" : "Qassam place",
+    "desc" : "Borther lives here",
+    "lat" : 49.279698,
+    "long" : 122.949600 ,
+    "topics" : [{ "title" : "Welcome to brother house", "activePeople" : 500,  "desc" : "hey brother!! lets make money"}]
+}
+
 ]
