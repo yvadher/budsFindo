@@ -1,6 +1,7 @@
 var gulp = require('gulp'),
   webserver = require('gulp-webserver'),
-  target = 'builds/angular/';
+  target = 'builds/angular/',
+  connect = require('gulp-connect');;
 
 gulp.task('js', function() {
   gulp.src(target + 'js/*');
@@ -22,11 +23,16 @@ gulp.task('watch', function() {
 });
 
 gulp.task('webserver', function() {
-  gulp.src(target)
-    .pipe(webserver({
-      livereload: true,
-      open: true
-    }));
+  connect.server({
+    root: ['./builds/angular/'],
+    port: process.env.PORT || 5000, // localhost:5000
+    livereload: false
+  });
+  // gulp.src(target)
+  //   .pipe(webserver({
+  //     livereload: true,
+  //     open: true
+  //   }));
 });
 
 gulp.task('default', ['watch', 'html', 'js', 'css', 'webserver']);
