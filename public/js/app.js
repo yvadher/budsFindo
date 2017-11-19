@@ -84,7 +84,7 @@ mapApp.controller('MapController', function ($scope, $http, ngDialog) {
     //     }
     //  }, 3000);
 
-    $http.get('./js/data.json').then(function(response){
+    $http.get('/api/getData').then(function(response){
         $scope.data = response.data;
         $scope.totalData = $scope.data.length;
         var h = window.innerHeight;
@@ -163,6 +163,8 @@ mapApp.controller('MapController', function ($scope, $http, ngDialog) {
                         $scope.markers[indexObj].setMap(null);
                         console.log("calling create mamrker");
                         createMarker($scope.data[indexObj], indexObj);
+
+                      //  $http.post('/api/update', $scope.data[indexObj]);
                     }else {
                         // Add new object to the data
                         var obj = {
@@ -172,6 +174,7 @@ mapApp.controller('MapController', function ($scope, $http, ngDialog) {
                             "long" : lng,
                             "topics" : [{ title : $scope.topicTitle, activePeople : 1}]
                         }
+                        $http.post('/api/save', obj);
                         $scope.data.push(obj);
                         createMarker(obj, $scope.data.length);
                     }

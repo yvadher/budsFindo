@@ -23,7 +23,7 @@
     "http": "0.0.0",
     "log-timestamp": "*",
     "mongodb": "^2.2.33",
-    "mongoose": "^4.13.0",
+    "mongoose": "^4.13.4",
     "nconf": "*"
   },
   "devDependencies": {},
