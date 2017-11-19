@@ -1,12 +1,12 @@
 {
   "name": "AngularJS",
   "version": "0.0.2",
-  "description": "This project is the repository for my course Up and Running with AngularJS course on Lynda.com",
+  "description": "This project is geoApp",
   "repository": {
     "type": "git",
-    "url": "https://github.com/planetoftheweb/angular.git"
+    "url": "https://github.com/yvadher/budsFindo.git"
   },
-  "author": "Ray Villalobos",
+  "author": "Yagnik Vadher",
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-webserver": "^0.9.1"
