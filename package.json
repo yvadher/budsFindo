@@ -1,17 +1,40 @@
 {
-  "name": "AngularJS",
-  "version": "0.0.2",
-  "description": "This project is geoApp",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/yvadher/budsFindo.git"
+  "name": "gotalk",
+  "version": "1.0.0",
+  "description": "goTalk app for the autisum kids! Backend data processing is done on this part of a project. ",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "start": "node index.js",
+    "server": "node index.js",
+    "server_local": "SET NODE_ENV=local&&node index.js",
+    "server_develop": "SET NODE_ENV=development&& node index.js",
+    "server_staging": "SET NODE_ENV=staging&& node index.js"
   },
-  "author": "Yagnik Vadher",
-  "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-webserver": "^0.9.1"
+  "engines": {
+    "npm": ">3.0.0",
+    "node": "^6.2.2"
   },
   "dependencies": {
-    "gulp-connect": "^5.0.0"
-  }
+    "@sendgrid/mail": "^6.1.4",
+    "colors": "^1.1.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "http": "0.0.0",
+    "log-timestamp": "*",
+    "mongodb": "^2.2.33",
+    "mongoose": "^4.13.0",
+    "nconf": "*"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yvadher/cmpt275App.git"
+  },
+  "author": "Yagnik Vadher",
+  "license": "MIT ",
+  "bugs": {
+    "url": "https://github.com/yvadher/cmpt275App/issues"
+  },
+  "homepage": "https://github.com/yvadher/cmpt275App#readme"
 }
