@@ -10,8 +10,8 @@
 <link rel="stylesheet" href="lib/angular/ngDialog-theme-default.min.css">
 <link rel="stylesheet" href="css/style.css">
 
-<script	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
-<script src="http://maps.googleapis.com/maps/api/js?sensor=false&language=en&libraries=places"></script>
+<script	src="lib/angular/angular.min.js"></script>
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD0mVAoqSKvKHy7BGXfngqTeJaFXpheQ54&language=en&libraries=places"></script>
 <script src="lib/maps/markerclusterer.js"></script>
 <script src="lib/angular/ngDialog.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -23,11 +23,11 @@
 
   <div class="container-fluid">
         <div class="row content">
-          
+
             <div class="col-sm-4 col-md-4 col-lg-4">
                 <h2>geoApp</h2>
-                
-                
+
+
                 <!-- Add toppic starts -->
                 <div class="row">
                   <div class="form-group col-xs-6">
@@ -44,12 +44,12 @@
                     <label >Topic Discription:</label>
                     <input type="text" class="form-control" ng-model="topicDes">
                   </div>
-                
+
                 <div>
-                  <button type="button" ng-click="addTopic()" class="btn btn-primary btn-md">Start topic</button>  
+                  <button type="button" ng-click="addTopic()" class="btn btn-primary btn-md">Start topic</button>
                 </div>
-                
-                
+
+
                 <!-- Add toppic Ends -->
                 <hr>
                 <!-- Search bar starts -->
@@ -57,7 +57,7 @@
                   <label>Search <span ng-show="searchQuery">for : {{searchQuery}}</span></label>
                   <input type="text" class="form-control" ng-model="searchQuery">
                 </div>
-               
+
                 <!-- List View -->
 
                 <div class="container" >
@@ -80,15 +80,15 @@
                 <!-- List View Ends-->
                 <!-- Search bar ends -->
             </div>
-            
+
             <br>
-            
+
 
             <!-- Map column -->
             <div class="col-sm-8">
               <div class="well">
                <div id="map"></div>
-              </div>            
+              </div>
             </div>
   </div>
 
