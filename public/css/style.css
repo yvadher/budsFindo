@@ -21,3 +21,14 @@ h1, h2, h3, h4, h5, h6, p, input {
 }
 
 
+.titleName {
+  background-color: #FFFFFF;
+  color: #050526;
+  font-family: 'comic sans ms';
+  font-style: italic;
+  font-weight: normal;
+  font-size: 21px;
+  font-variant: normal;
+  cursor: text;
+  text-shadow: 2px 1px 1px #800000;
+}
