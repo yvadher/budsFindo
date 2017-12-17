@@ -11,11 +11,3 @@ An app for posting intresting topics or discussion anonymously based on geo loca
 * [node](https://nodejs.org/en/) - Used to run server and database qurey
 * [mongoDB](https://www.mongodb.com/) - Databse for app
 
-
-
-
-
-
-## Authors
-
-* **Yagnik** 
